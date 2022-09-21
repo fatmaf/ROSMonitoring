@@ -28,14 +28,12 @@
 # specification("Preferred",[avoid(danger_orange)])
 # (G ! (danger_red)) & ((!(t2bottom)) U ipone) & ((!(tankset)) U ipone) & ((!(pipes)) U ipone) & ((!(pipes)) U t2bottom) & ((!(pipes)) U tankset) & ((!(tankset)) U t2bottom)
 
-PROPERTY = "(G ! (dangerred)) AND ((!(t2bottom)) U ipone) AND ((!(tankset)) U ipone) AND ((!(pipes)) U ipone) AND ((!(pipes)) U t2bottom) AND ((!(pipes)) U tankset) AND ((!(tankset)) U t2bottom)"
-locs = ['t2bottom','ipone','tankset','pipes']
+PROPERTY = "(G ! (t2left)) AND ((!(t2bottom)) U ipone) AND ((!(tankset)) U ipone) AND ((!(pipes)) U ipone) AND ((!(pipes)) U t2bottom) AND ((!(pipes)) U tankset) AND ((!(tankset)) U t2bottom)"
+locs = ['t2bottom','ipone','tankset','pipes','t2left']
 # predicates used in the property (initialization for time 0)
 predicates = dict(
-    dangerred = False,
     time = 0
 )
-
 for loc in locs:
     predicates[loc]=False
 # in here we can add all the predicates we are interested in.. Of course, we also need to define how to translate Json messages to predicates.
