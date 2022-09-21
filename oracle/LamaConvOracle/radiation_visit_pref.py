@@ -26,22 +26,34 @@
 # future "G hello"
 # specification("Required",[visit(pipes)])
 # specification("Preferred",[avoid(danger_orange)])
-PROPERTY = "F pipes"
+# (G ! (danger_red)) & ((!(t2bottom)) U ipone) & ((!(tankset)) U ipone) & ((!(pipes)) U ipone) & ((!(pipes)) U t2bottom) & ((!(pipes)) U tankset) & ((!(tankset)) U t2bottom)
 
+PROPERTY = "(G ! (dangerred)) AND ((!(t2bottom)) U ipone) AND ((!(tankset)) U ipone) AND ((!(pipes)) U ipone) AND ((!(pipes)) U t2bottom) AND ((!(pipes)) U tankset) AND ((!(tankset)) U t2bottom)"
+locs = ['t2bottom','ipone','tankset','pipes']
 # predicates used in the property (initialization for time 0)
 predicates = dict(
-    pipes = False,
+    dangerred = False,
+    t2bottom = False, 
+    tankset = False, 
+    ipone = False, 
+    pipes =False,
     time = 0
 )
 # in here we can add all the predicates we are interested in.. Of course, we also need to define how to translate Json messages to predicates.
 
 # function to abstract a dictionary (obtained from Json message) into a list of predicates
 def abstract_message(message):
-    #print(message)
-    if message['topic'] == 'at_location' and message['data'] == 'pipes':
-        predicates['pipes'] = True
+    if message['topic'] == 'radiation_status' and message['data'] == 'danger_red':
+        predicates['dangerred'] = True
     else:
-        predicates['pipes'] = False
+        predicates['dangerred'] = False
+    
+    if message['topic'] == 'at_location':
+        for loc in locs:
+            if message['data'] == loc:
+                predicates[loc] = True 
+            else:
+                predicates[loc] = False 
     predicates['time'] = message['time']
     return predicates
 # This function has to be defined by the user depending on the property defined.

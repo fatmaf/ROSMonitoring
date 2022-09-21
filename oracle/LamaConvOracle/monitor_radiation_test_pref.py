@@ -17,7 +17,7 @@ class Monitor:
   
   def transit_to_q0(self):
     self.state = "q0"
-    self.output = True
+    self.output = False
     self.callback(self.output)
   
 
@@ -25,17 +25,17 @@ class Monitor:
   def transit(self, assignment):
 
 
-    if self.state == "q1":
-      if (assignment["pipes"]):
-        self.transit_to_q0()
-      if (not assignment["pipes"]):
-        self.transit_to_q1()
+    if self.state == "q0":
+      self.transit_to_q0()
       return
 
 
 
-    if self.state == "q0":
-      self.transit_to_q0()
+    if self.state == "q1":
+      if (not assignment["dangerorange"]):
+        self.transit_to_q1()
+      if (assignment["dangerorange"]):
+        self.transit_to_q0()
       return
 
 
