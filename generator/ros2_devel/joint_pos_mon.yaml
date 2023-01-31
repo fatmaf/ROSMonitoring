@@ -1,0 +1,23 @@
+
+path: /home/robotlab/code/ros2/ws_panda_rm_demo/src # this is the path to the ros workspace you'd like the monitor package in
+nodes: # here we list the nodes we are going to monitor
+  - node:
+      name: visualiser
+      package: rosmondemo
+      path: /home/robotlab/code/ros2/ws_panda_rm_demo/src/rosmondemo/launch/monitor_verdict_visualiser.launch
+
+
+monitors: # here we list the monitors we are going to generate
+  - monitor:
+      id: joint_pos_monitor
+      log: /home/robotlab/code/ros2/ws_panda_rm_demo/src/rosmondemo/ROSMonitoringConfigs/joint_pos_monitor_log.txt # file where the monitor will log the observed events
+      silent: False # we let the monitor to print info during its execution
+      oracle: # the oracle running and ready to check the specification (localhost in this case)
+        port: 8080 # the port where it is listening
+        url: 127.0.0.1 # the url where it is listening
+        action: nothing # the oracle will not change the message
+      topics: # the list of topics this monitor is going to intercept
+        - name: joint_state # name of the topic
+          type: sensor_msgs.msg.JointState # type of the topic
+          action: log
+

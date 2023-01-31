@@ -79,13 +79,14 @@ class LamaConvOracle(object):
 	# Called when a client sends a message
 	def message_received(self,client, server, message):
 		message_dict = json.loads(message)
+		message_dict['spec'] = self.property.PROPERTY
 		if self.check_event(message) is True:
 			message_dict['verdict'] = 'true'
 		elif self.check_event(message) is False:
 			message_dict['verdict'] = 'false'
-			message_dict['spec'] = self.property.PROPERTY
+
 		else:
-			message_dict['verdict'] = 'unkonwn'
+			message_dict['verdict'] = 'unknown'
 		server.send_message(client, json.dumps(message_dict))
 
 	def monitor_result_callback(self,monitor_res):

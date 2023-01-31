@@ -23,11 +23,11 @@
 import os
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__),'code/monitor/'))
-import yaml
+# import yaml
 import xml.etree.ElementTree as ET
-from jedi.inference.names import AbstractNameDefinition
-from prompt_toolkit.layout.controls import GetLinePrefixCallable
-from gi._gtktemplate import Child
+# from jedi.inference.names import AbstractNameDefinition
+# from prompt_toolkit.layout.controls import GetLinePrefixCallable
+# from gi._gtktemplate import Child
 import setup_resources as sr
 
 
